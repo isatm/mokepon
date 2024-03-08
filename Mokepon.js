@@ -171,48 +171,48 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque() {
     botones.forEach((boton) => {
         boton.addEventListener('click', (e) => {
-            switch (e.target.textContent.trim()) {
-                case '🔥':
-                    console.log(e)
-                    ataqueJugador.push('🔥')
-                    console.log('FUEGO', ataqueJugador)
-                    boton.style.background = '#112f58'
-                    break;
-                case '💧':
-                    ataqueJugador.push('💧')
-                    console.log('AGUA', ataqueJugador)
-                    boton.style.background = '#112f58'
-                    break;
-                case '🌍':
-                    ataqueJugador.push('🌍')
-                    console.log('TIERRA', ataqueJugador)
-                    boton.style.background = '#112f58'
-                    break;
-                default:
-                    alert('EL atque no existe')
-                    break;
+         //   switch (e.target.textContent.trim()) {
+            //    case '🔥':
+                //    console.log(e)
+                //    ataqueJugador.push('🔥')
+                ///    console.log('FUEGO', ataqueJugador)
+                 //   boton.style.background = '#112f58'
+                //    break;
+              //  case '💧':
+              //      ataqueJugador.push('💧')
+              //      console.log('AGUA', ataqueJugador)
+               //     boton.style.background = '#112f58'
+                 //   break;
+             //   case '🌍':
+               //     ataqueJugador.push('🌍')
+                ///    console.log('TIERRA', ataqueJugador)
+             ///       boton.style.background = '#112f58'
+               //     break;
+             //   default:
+             //       alert('EL atque no existe')
+             //       break;
 
-            }
-            // if (e.target.textContent.trim() === '🔥') {
-            //     console.log(e)
-            //     ataqueJugador.push('🔥')
-            //     console.log('FUEGO', ataqueJugador)
-            //     boton.style.background = '#112f58'
-            //     return 
-            // }
-            // if (e.target.textContent.trim() === '💧') {
-            //     ataqueJugador.push('💧')
-            //     console.log('AGUA', ataqueJugador)
-            //     boton.style.background = '#112f58'
-            //     return
-            // } 
-            // if(e.target.textContent.trim() === '🌍'){
-            //     ataqueJugador.push('TIERRA')
+            //}
+             if (e.target.textContent.trim() === '🔥') {
+                 console.log(e)
+                 ataqueJugador.push('FUEGO')
+                 console.log('FUEGO', ataqueJugador)
+                 boton.style.background = '#112f58'
+                 return 
+             }
+             if (e.target.textContent.trim() === '💧') {
+                 ataqueJugador.push('AGUA')
+                 console.log('AGUA', ataqueJugador)
+                 boton.style.background = '#112f58'
+                 return
+             } 
+             if(e.target.textContent.trim() === '🌍'){
+                 ataqueJugador.push('TIERRA')
 
-            //     console.log('TIERRA', ataqueJugador)
-            //     boton.style.background = '#112f58'
-            //     return
-            // }
+                 console.log('TIERRA', ataqueJugador)
+                 boton.style.background = '#112f58'
+                 return
+             }
         })
     })
 }
@@ -220,7 +220,7 @@ function secuenciaAtaque() {
 function seleccionarAtaqueEnemigo() {
     let ataqueAleatorio = aleatorio(1, 3)
     if (ataqueAleatorio == 1) {
-        ataqueEnemigo = "FUEGO"
+        ataqueEnemigo = "FUEGO" 
 
     } else if (ataqueAleatorio == 2) {
         ataqueEnemigo = "AGUA"
