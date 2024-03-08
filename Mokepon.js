@@ -50,28 +50,44 @@ let mapaBackground = new Image()
 mapaBackground.src = './img/mokemap.png'
 
 class Mokepon {
-    constructor(nombre, foto, vida) {
+    constructor(nombre, foto, vida,fotoMapa,x = 10,y=10) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = 20
-        this.y = 30
-        this.ancho = 80
-        this.alto = 80
+        this.x = x
+        this.y = y
+        this.ancho = 40
+        this.alto = 40
         this.mapaFoto = new Image()
-        this.mapaFoto.src = foto
+        this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
     }
-
+    pintarMokepon(){
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+        )
+    }
 }
 
-let aqua = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5)
+let aqua = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5,'./img/Aqua.webp')
 
-let terrax = new Mokepon("Terrax", './img/mokepons_mokepon_capipepo_attack.webp', 5)
+let terrax = new Mokepon("Terrax", './img/mokepons_mokepon_capipepo_attack.webp', 5,'./img/Terrax.webp')
 
-let flama = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5)
+let flama = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5,'./img/flama.webp')
+
+
+let aquaEnemigo = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5,'./img/Aqua.webp',80,120)
+
+let terraxEnemigo = new Mokepon("Terrax", './img/mokepons_mokepon_capipepo_attack.webp', 5,'./img/Terrax.webp',150,30)
+
+let flamaEnemigo = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5,'./img/flama.webp',60,100)
+
 
 
 aqua.ataques.push(
@@ -360,13 +376,10 @@ function pintarCanvas(){
         mapa.width,
         mapa.height
     )
-    lienzo.drawImage(
-        mascotaJugadorObjeto.mapaFoto,
-        mascotaJugadorObjeto.x,
-        mascotaJugadorObjeto.y,
-        mascotaJugadorObjeto.ancho,
-        mascotaJugadorObjeto.alto
-    )
+    mascotaJugadorObjeto.pintarMokepon()
+    terraxEnemigo.pintarMokepon()
+    aquaEnemigo.pintarMokepon()
+    flamaEnemigo.pintarMokepon()
 }
 
 
