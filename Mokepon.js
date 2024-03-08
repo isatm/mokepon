@@ -86,11 +86,19 @@ let aquaEnemigo = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.we
 
 let terraxEnemigo = new Mokepon("Terrax", './img/mokepons_mokepon_capipepo_attack.webp', 5,'./img/Terrax.webp',150,30)
 
-let flamaEnemigo = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5,'./img/flama.webp',60,100)
+let flamaEnemigo = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5,'./img/flama.webp',200,100)
 
 
 
 aqua.ataques.push(
+    { nombre: '💧', id: 'boton_agua' },
+    { nombre: '💧', id: 'boton_agua' },
+    { nombre: '💧', id: 'boton_agua' },
+    { nombre: '🔥', id: 'boton_fuego' },
+    { nombre: '🌍', id: 'boton_tierra' }
+)
+
+aquaEnemigo.ataques.push(
     { nombre: '💧', id: 'boton_agua' },
     { nombre: '💧', id: 'boton_agua' },
     { nombre: '💧', id: 'boton_agua' },
@@ -105,7 +113,23 @@ terrax.ataques.push(
     { nombre: '🔥', id: 'boton_fuego' },
     { nombre: '💧', id: 'boton_agua' },
 )
+terraxEnemigo.ataques.push(
+    { nombre: '🌍', id: 'boton_tierra' },
+    { nombre: '🌍', id: 'boton_tierra' },
+    { nombre: '🌍', id: 'boton_tierra' },
+    { nombre: '🔥', id: 'boton_fuego' },
+    { nombre: '💧', id: 'boton_agua' },
+)
+
 flama.ataques.push(
+    { nombre: '🔥', id: 'boton_fuego' },
+    { nombre: '🔥', id: 'boton_fuego' },
+    { nombre: '🔥', id: 'boton_fuego' },
+    { nombre: '💧', id: 'boton_agua' },
+    { nombre: '🌍', id: 'boton_tierra' },
+)
+
+flamaEnemigo.ataques.push(
     { nombre: '🔥', id: 'boton_fuego' },
     { nombre: '🔥', id: 'boton_fuego' },
     { nombre: '🔥', id: 'boton_fuego' },
@@ -145,8 +169,6 @@ function seleccionarMascotaJugador() {
     //sectionSeleccionarAtaque.style.display = 'flex'
 
 
-
-
     if (inputAqua.checked) {
         spanMascotaJugador.innerHTML = inputAqua.id
         mascotaJugador = inputAqua.id
@@ -165,7 +187,7 @@ function seleccionarMascotaJugador() {
     extraerAtaque(mascotaJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
-    seleccionarMascotaEnemigo()
+   // seleccionarMascotaEnemigo()
 }
 
 
@@ -248,8 +270,7 @@ function secuenciaAtaque() {
                  ataqueJugador.push('AGUA')
                  console.log('AGUA', ataqueJugador)
                  boton.style.background = '#112f58'
-                 boton.disabled = true
-                 
+                 boton.disabled = true     
              } 
              else{
                  ataqueJugador.push('TIERRA')
@@ -382,6 +403,8 @@ function pintarCanvas(){
     flamaEnemigo.pintarMokepon()
     if(mascotaJugadorObjeto.velocidadX != 0 || mascotaJugadorObjeto.velocidadY != 0){
         revisarColision(terraxEnemigo)
+        revisarColision(aquaEnemigo)
+        revisarColision(flamaEnemigo)
     }
 }
 
@@ -459,8 +482,12 @@ function revisarColision(enemigo){
         ){
             return
         }
-
-        alert("hay coalision")
+        detenerMovimiento()
+        clearInterval(intervalo)
+        sectionSeleccionarAtaque.style.display = 'flex'
+        sectionVerMapa.style.display = 'none'
+        seleccionarMascotaEnemigo(enemigo)
+        //alert("hay coalision con " + enemigo.nombre)
 }
 
 
