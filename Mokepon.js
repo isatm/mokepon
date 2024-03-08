@@ -44,7 +44,7 @@ let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
-
+let intervalo
 
 class Mokepon {
     constructor(nombre, foto, vida) {
@@ -58,6 +58,8 @@ class Mokepon {
         this.alto = 80
         this.mapaFoto = new Image()
         this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 
 }
@@ -123,6 +125,7 @@ function seleccionarMascotaJugador() {
     sectionSeleccionarMascota.style.display = 'none'
     //sectionSeleccionarAtaque.style.display = 'flex'
     sectionVerMapa.style.display = 'flex'
+    intervalo = setInterval(pintarPersonaje, 50)
 
 
 
@@ -342,6 +345,8 @@ function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 function pintarPersonaje(){
+    terrax.x = terrax.x + terrax.velocidadX
+    terrax.y = terrax.y + terrax.velocidadY
     lienzo.clearRect(0, 0, mapa.width,mapa.height)
     lienzo.drawImage(
         terrax.mapaFoto,
@@ -353,9 +358,25 @@ function pintarPersonaje(){
 }
 
 
-function moverTerrax(){
-    terrax.x = terrax.x + 5
-    pintarPersonaje()
+function moverDerecha(){
+    terrax.velocidadX = 5
+    
+}
+function moverIzquierda(){
+    terrax.velocidadX = -5
+    
+}
+function moverAbajo(){
+    terrax.velocidadY = 5
+    
+}
+function moverArriba(){
+    terrax.velocidadY = - 5
+
+}
+function detenerMovimiento(){
+    terrax.velocidadX = 0
+    terrax.velocidadY = 0
 }
 
 window.addEventListener('load', iniciarJuego)
