@@ -44,12 +44,20 @@ let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
+
+
 class Mokepon {
     constructor(nombre, foto, vida) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
     }
 
 }
@@ -115,14 +123,7 @@ function seleccionarMascotaJugador() {
     sectionSeleccionarMascota.style.display = 'none'
     //sectionSeleccionarAtaque.style.display = 'flex'
     sectionVerMapa.style.display = 'flex'
-    let imagenTerrax = new Image()
-    imagenTerrax.src = terrax.foto
-    lienzo.drawImage(imagenTerrax,
-        20,
-        40,
-        100,
-        100
-    )
+
 
 
     if (inputAqua.checked) {
@@ -339,6 +340,22 @@ function reiniciarJuego() {
 
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
+}
+function pintarPersonaje(){
+    lienzo.clearRect(0, 0, mapa.width,mapa.height)
+    lienzo.drawImage(
+        terrax.mapaFoto,
+        terrax.x,
+        terrax.y,
+        terrax.ancho,
+        terrax.alto
+    )
+}
+
+
+function moverTerrax(){
+    terrax.x = terrax.x + 5
+    pintarPersonaje()
 }
 
 window.addEventListener('load', iniciarJuego)
