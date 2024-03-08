@@ -251,7 +251,7 @@ function iniciarPelea(){
 }
 
 function indexAmbosOponentes(jugador,enemigo){
-    indexAtaqueJugador = ataqueEnemigo[jugador]
+    indexAtaqueJugador = ataqueJugador[jugador]
     indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 
 }
@@ -261,41 +261,44 @@ function combate() {
         if(ataqueJugador[index] === ataqueEnemigo[index]){
             indexAmbosOponentes(index,index)
             crearMensaje("EMPATE")
+        //    victoriasJugador++
+      //      spanVidasJugador.innerHTML = victoriasJugador
         } else if(ataqueJugador[index]== "FUEGO" && ataqueEnemigo[index] == "TIERRA"){
             indexAmbosOponentes(index,index)
             crearMensaje("GANASTE")
-            vidasEnemigo--
-            spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
+            victoriasJugador ++
+            spanVidasJugador.innerHTML = "Victorias " + victoriasJugador
 
         }else if (ataqueJugador[index] == "AGUA" && ataqueEnemigo[index] == "FUEGO") {
             indexAmbosOponentes(index,index)
             crearMensaje("GANASTE")
-            vidasEnemigo--
-            spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
+            victoriasJugador ++
+            spanVidasJugador.innerHTML = "Victorias " + victoriasJugador
     
         } else if (ataqueJugador[index] == "TIERRA" && ataqueEnemigo[index] == "AGUA") {
             indexAmbosOponentes(index,index)
             crearMensaje("GANASTE")
-            vidasEnemigo--
-            spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
+            victoriasJugador ++
+            spanVidasJugador.innerHTML = "Victorias " + victoriasJugador
         } else {
             indexAmbosOponentes(index,index)
             crearMensaje("---->PERDISTE")
-            vidasJugador--
-            spanVidasJugador.innerHTML = "Vidas " + vidasJugador
+            victoriasEnemigo ++
+            spanVidasEnemmigo.innerHTML = "Victorias " + victoriasEnemigo
         }
     }
 
 
-
-    revisarVidas()
+    revisarVictorias()
 }
 
-function revisarVidas() {
-    if (vidasEnemigo == 0) {
-        crearMensajeFinal("GANASTE 😊")
-    } else if (vidasJugador == 0) {
-        crearMensajeFinal("PERDISTE 😢")
+function revisarVictorias() {
+    if (victoriasJugador == victoriasEnemigo) {
+        crearMensajeFinal("EMPATE")
+    } else if (victoriasJugador > victoriasEnemigo) {
+        crearMensajeFinal("FELICITACIONES, GANASTE")
+    }else{
+        crearMensajeFinal("LO SIENTO, PERDISTE")
     }
 
 }
