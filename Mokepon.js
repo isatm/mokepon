@@ -18,7 +18,8 @@ const ataqueDelJugador = document.getElementById("ataque-Del-Jugador")
 const ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo")
 const contenedorTarjetas = document.getElementById("contenedorDeTarjetas")
 const contenedorAtaque = document.getElementById("contenedorDeAtaques")
-
+const sectionVerMapa = document.getElementById("verMapa")
+const mapa = document.getElementById("mapa")
 
 
 let mokepones = []
@@ -206,12 +207,14 @@ function secuenciaAtaque() {
                  ataqueJugador.push('FUEGO')
                  console.log('FUEGO', ataqueJugador)
                  boton.style.background = '#112f58'
+                 boton.disabled = true
                  
              }
              else if (e.target.textContent.trim() === '💧') {
                  ataqueJugador.push('AGUA')
                  console.log('AGUA', ataqueJugador)
                  boton.style.background = '#112f58'
+                 boton.disabled = true
                  
              } 
              else{
@@ -219,6 +222,7 @@ function secuenciaAtaque() {
 
                  console.log('TIERRA', ataqueJugador)
                  boton.style.background = '#112f58'
+                 boton.disabled = true
                  
              }
              seleccionarAtaqueEnemigo()
@@ -261,30 +265,28 @@ function combate() {
         if(ataqueJugador[index] === ataqueEnemigo[index]){
             indexAmbosOponentes(index,index)
             crearMensaje("EMPATE")
-        //    victoriasJugador++
-      //      spanVidasJugador.innerHTML = victoriasJugador
         } else if(ataqueJugador[index]== "FUEGO" && ataqueEnemigo[index] == "TIERRA"){
             indexAmbosOponentes(index,index)
             crearMensaje("GANASTE")
             victoriasJugador ++
-            spanVidasJugador.innerHTML = "Victorias " + victoriasJugador
+            spanVidasJugador.innerHTML = victoriasJugador
 
         }else if (ataqueJugador[index] == "AGUA" && ataqueEnemigo[index] == "FUEGO") {
             indexAmbosOponentes(index,index)
             crearMensaje("GANASTE")
             victoriasJugador ++
-            spanVidasJugador.innerHTML = "Victorias " + victoriasJugador
+            spanVidasJugador.innerHTML = victoriasJugador
     
         } else if (ataqueJugador[index] == "TIERRA" && ataqueEnemigo[index] == "AGUA") {
             indexAmbosOponentes(index,index)
             crearMensaje("GANASTE")
             victoriasJugador ++
-            spanVidasJugador.innerHTML = "Victorias " + victoriasJugador
+            spanVidasJugador.innerHTML =victoriasJugador
         } else {
             indexAmbosOponentes(index,index)
             crearMensaje("---->PERDISTE")
             victoriasEnemigo ++
-            spanVidasEnemmigo.innerHTML = "Victorias " + victoriasEnemigo
+            spanVidasEnemmigo.innerHTML =  victoriasEnemigo
         }
     }
 
@@ -319,9 +321,6 @@ function crearMensajeFinal(resultado) {
     sectionReinicio.style.display = 'flex'
     let parrafo = document.createElement('h2')
     sectionMensajes.innerHTML = resultado
-    botonFuego.disabled = true
-    botonAgua.disabled = true
-    botonTierra.disabled = true
 }
 
 function reiniciarJuego() {
