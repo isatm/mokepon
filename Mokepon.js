@@ -43,7 +43,7 @@ let victoriasJugador = 0
 let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
-
+let lienzo = mapa.getContext("2d")
 class Mokepon {
     constructor(nombre, foto, vida) {
         this.nombre = nombre
@@ -88,7 +88,7 @@ mokepones.push(aqua, terrax, flama)
 
 function iniciarJuego() {
     sectionReinicio.style.display = 'none'
-
+    sectionVerMapa.style.display = 'none'
     mokepones.forEach((mokepon) => {
         opcionDeMokepones = `
         <input type="radio" name = "mascotas" id = ${mokepon.nombre} />
@@ -113,7 +113,17 @@ function iniciarJuego() {
 
 function seleccionarMascotaJugador() {
     sectionSeleccionarMascota.style.display = 'none'
-    sectionSeleccionarAtaque.style.display = 'flex'
+    //sectionSeleccionarAtaque.style.display = 'flex'
+    sectionVerMapa.style.display = 'flex'
+    let imagenTerrax = new Image()
+    imagenTerrax.src = terrax.foto
+    lienzo.drawImage(imagenTerrax,
+        20,
+        40,
+        100,
+        100
+    )
+
 
     if (inputAqua.checked) {
         spanMascotaJugador.innerHTML = inputAqua.id
