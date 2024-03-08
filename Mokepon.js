@@ -31,10 +31,15 @@ let inputFlama
 let mascotaJugador
 let ataquesMokepon
 let ataquesMokeponEnemigo
+
 let botonFuego
 let botonAgua
 let botonTierra
 let botones = []
+let indexAtaqueJugador
+let indexAtaqueEnemigo
+let victoriasJugador = 0
+let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -235,32 +240,53 @@ function seleccionarAtaqueEnemigo() {
 
     }
     console.log(ataqueEnemigo)
-    combate()
+    iniciarPelea()
 }
 
+function iniciarPelea(){
+    if(ataqueJugador.length === 5){
+        combate()
+    }
 
+}
+
+function indexAmbosOponentes(jugador,enemigo){
+    indexAtaqueJugador = ataqueEnemigo[jugador]
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo]
+
+}
 function combate() {
 
-    if (ataqueEnemigo == ataqueJugador) {
-        crearMensaje("---->EMPATE")
-    } else if (ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
-        crearMensaje("---->GANASTE")
-        vidasEnemigo--
-        spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
-    } else if (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") {
-        crearMensaje("---->GANASTE")
-        vidasEnemigo--
-        spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
+    for(let index = 0; index < ataqueJugador.length; index++){
+        if(ataqueJugador[index] === ataqueEnemigo[index]){
+            indexAmbosOponentes(index,index)
+            crearMensaje("EMPATE")
+        } else if(ataqueJugador[index]== "FUEGO" && ataqueEnemigo[index] == "TIERRA"){
+            indexAmbosOponentes(index,index)
+            crearMensaje("GANASTE")
+            vidasEnemigo--
+            spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
 
-    } else if (ataqueJugador == "TIERRA" && ataqueEnemigo == "AGUA") {
-        crearMensaje("---->GANASTE")
-        vidasEnemigo--
-        spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
-    } else {
-        crearMensaje("---->PERDISTE")
-        vidasJugador--
-        spanVidasJugador.innerHTML = "Vidas " + vidasJugador
+        }else if (ataqueJugador[index] == "AGUA" && ataqueEnemigo[index] == "FUEGO") {
+            indexAmbosOponentes(index,index)
+            crearMensaje("GANASTE")
+            vidasEnemigo--
+            spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
+    
+        } else if (ataqueJugador[index] == "TIERRA" && ataqueEnemigo[index] == "AGUA") {
+            indexAmbosOponentes(index,index)
+            crearMensaje("GANASTE")
+            vidasEnemigo--
+            spanVidasEnemmigo.innerHTML = "Vidas " + vidasEnemigo
+        } else {
+            indexAmbosOponentes(index,index)
+            crearMensaje("---->PERDISTE")
+            vidasJugador--
+            spanVidasJugador.innerHTML = "Vidas " + vidasJugador
+        }
     }
+
+
 
     revisarVidas()
 }
@@ -278,8 +304,8 @@ function crearMensaje(resultado) {
     let nuevoAtaqueDelEnemigo = document.createElement('p')
 
     sectionMensajes.innerHTML = resultado
-    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
-    nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo
+    nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador
+    nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo
     // let parrafo = document.createElement('p')
     //parrafo.innerHTML = "Tu mascota ataco con "+ ataqueJugador+ ", la mascota enemiga ataco con "+ ataqueEnemigo + " "+resultado
     ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
