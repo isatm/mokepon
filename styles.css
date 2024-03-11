@@ -116,11 +116,26 @@ input:checked + label{
     align-items: center;
     justify-content: center;
 }
-
-@media (max-width: 360px){
+#verMapa button{
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-family: 'poppins', sans-serif;
+    margin: 5px;
+}
+@media (max-width: 560px){
 
     .tarjetas, .tarjetas-ataques{
         flex-direction: column;
     }
-
+}
+@media (max-width: 300px){
+    #verMapa div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
 }
