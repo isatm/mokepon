@@ -43,8 +43,9 @@ app.post("/mokepon/:jugadorId",(req,res)=> {
     if (jugadorIndex >= 0){
         jugadores[jugadorIndex].asignarMokepon(mokepon)
     }
-    console.log(jugadores)
+
     console.log(jugadorId)
+    console.log(jugadores)
     res.end()
 })
 
@@ -55,9 +56,17 @@ app.post("/mokepon/:jugadorId/posicion",(req,res) =>{
     const jugadorIndex = jugadores.findIndex((jugador) => jugadorId == jugador.id)
 
     if (jugadorIndex >= 0){
-        jugadores[jugadorIndex].actualizarPosicion(x,y)}
-    res.end()
+        jugadores[jugadorIndex].actualizarPosicion(x,y)
+    }
+    
+    const enemigos = jugadores.filter((jugador) => jugadorId != jugador.id)
+    res.send({
+        enemigos
+    })
+
 })
+
+
 
 app.listen(8080, () => {
     console.log("Servidor funcionando en el puerto 8080");
