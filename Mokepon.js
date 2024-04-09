@@ -176,7 +176,7 @@ function unirseAlJuego(){
 
 
 
-function seleccionarMascotaJugador() {
+async function seleccionarMascotaJugador() {
     sectionSeleccionarMascota.style.display = 'none'
 
     
@@ -198,7 +198,7 @@ function seleccionarMascotaJugador() {
 
     }
 
-    seleccionarMokepon(mascotaJugador)
+    await seleccionarMokepon(mascotaJugador)
 
     extraerAtaque(mascotaJugador)
     sectionVerMapa.style.display = 'flex'
@@ -206,8 +206,11 @@ function seleccionarMascotaJugador() {
    // seleccionarMascotaEnemigo()
 }
 
-function seleccionarMokepon(mascotaJugador){
-    fetch(`http://localhost:8080/mokepon/${jugadorId}`,{
+async function seleccionarMokepon(mascotaJugador){
+
+    debugger
+    console.log(mascotaJugador)
+    const response = await fetch(`http://localhost:8080/mokepon/${jugadorId}`,{
         method: "post",
         headers : {
             "content-type": "application/json"
@@ -216,6 +219,8 @@ function seleccionarMokepon(mascotaJugador){
             mokepon : mascotaJugador
         })
     })
+
+    console.log('juagadores',response)
 }
 
 function seleccionarMascotaEnemigo() {
@@ -456,8 +461,9 @@ function enviarPosicion(x, y) {
                     return
                 }
                 enemigos.forEach(function(enemigo) {
-                    console.log(enemigo)
+                    console.log('enemigo',enemigo)
                     const mokeponNombre = enemigo.mokepon.nombre || ""
+                    console.log('mokeponNombre',mokeponNombre)
                     let mokeponEnemigo = null
                     if (mokeponNombre == "Aqua") {
                         mokeponEnemigo = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5, './img/Aqua.webp')
@@ -522,7 +528,8 @@ function teclaPresionada(event){
 function iniciarMapa(){
     mascotaJugadorObjeto = obtenerMascota(mascotaJugador)
 
-    intervalo = setInterval(pintarCanvas, 50)
+    pintarCanvas()
+    // intervalo = setInterval(pintarCanvas, 50)
     window.addEventListener('keydown',teclaPresionada)
     window.addEventListener('keyup', detenerMovimiento)
 }

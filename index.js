@@ -26,6 +26,7 @@ class Mokepon{
 
 app.get("/unirse", (req, res) => {
     const id = `${Math.random()}`;
+    console.log("Nuevo jugador", id);
     const nuevoJugador = new Jugador(id);
     jugadores.push(nuevoJugador);
 
@@ -39,14 +40,17 @@ app.post("/mokepon/:jugadorId",(req,res)=> {
     const nombre = req.body.mokepon || ""
     const mokepon = new Mokepon(nombre)
 
-    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId == jugador.id)
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+    console.log('jugadorIndex',jugadorIndex)
     if (jugadorIndex >= 0){
         jugadores[jugadorIndex].asignarMokepon(mokepon)
     }
 
     console.log(jugadorId)
     console.log(jugadores)
-    res.end()
+    res.json({
+        jugadores
+    })
 })
 
 app.post("/mokepon/:jugadorId/posicion",(req,res) =>{
