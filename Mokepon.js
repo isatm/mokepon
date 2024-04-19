@@ -90,10 +90,13 @@ class Mokepon {
 }
 
 let aqua = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5,'./img/Aqua.webp')
+let aquaEnemigo = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5,'./img/Aqua.webp')
 
 let terrax = new Mokepon("Terrax", './img/mokepons_mokepon_capipepo_attack.webp', 5,'./img/Terrax.webp')
+let terraxEnemigo = new Mokepon("Terrax", './img/mokepons_mokepon_capipepo_attack.webp', 5,'./img/Terrax.webp')
 
 let flama = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5,'./img/flama.webp')
+let flamaEnemigo = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5,'./img/flama.webp')
 
 
 
@@ -122,13 +125,13 @@ const flamaAtaques =[
 ]
 
 aqua.ataques.push(...aquaAtaques)
-//aquaEnemigo.ataques.push(...aquaAtaques)
+aquaEnemigo.ataques.push(...aquaAtaques)
 
 terrax.ataques.push(...terraxAtaques)
-//terraxEnemigo.ataques.push(...terraxAtaques)
+terraxEnemigo.ataques.push(...terraxAtaques)
 
 flama.ataques.push(...flamaAtaques)
-//flamaEnemigo.ataques.push(...flamaAtaques)
+flamaEnemigo.ataques.push(...flamaAtaques)
 
 mokepones.push(aqua, terrax, flama)
 
@@ -207,8 +210,6 @@ async function seleccionarMascotaJugador() {
 }
 
 async function seleccionarMokepon(mascotaJugador){
-
-    debugger
     console.log(mascotaJugador)
     const response = await fetch(`http://localhost:8080/mokepon/${jugadorId}`,{
         method: "post",
@@ -436,7 +437,7 @@ function pintarCanvas() {
 
 
 function enviarPosicion(x, y) {
-    fetch(`http://localhost:8080/mokepon/:${jugadorId}/posicion`, {
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -450,15 +451,15 @@ function enviarPosicion(x, y) {
         if (res.ok) {
             res.json()
             .then(function({ enemigos }) {
-                console.log(enemigos)
-                console.log(res.JSON)
                 if(!enemigos){
                     return
                 }
-                enemigos.forEach(function(enemigo) {
-                    console.log('enemigo',enemigo)
+                enemigos.forEach(function(enemigo) {     
+                    if (!enemigo?.mokepon?.nombre) {
+                        return
+                    }               
                     const mokeponNombre = enemigo.mokepon.nombre || ""
-                    console.log('mokeponNombre',mokeponNombre)
+                    console.log(enemigo)
                     let mokeponEnemigo = null
                     if (mokeponNombre == "Aqua") {
                         mokeponEnemigo = new Mokepon("Aqua", './img/mokepons_mokepon_hipodoge_attack.webp', 5, './img/Aqua.webp')
@@ -468,9 +469,8 @@ function enviarPosicion(x, y) {
                         mokeponEnemigo = new Mokepon("Flama", './img/mokepons_mokepon_ratigueya_attack.webp', 5, './img/flama.webp')
                     }
 
-                    mokeponEnemigo.x = enemigo.x
-                    mokeponEnemigo.y = enemigo.y
-
+                    mokeponEnemigo.x = enemigo.mokepon.x
+                    mokeponEnemigo.y = enemigo.mokepon.y
                     mokeponEnemigo.pintarMokepon()
 
                 });
@@ -524,7 +524,7 @@ function iniciarMapa(){
     mascotaJugadorObjeto = obtenerMascota(mascotaJugador)
 
     pintarCanvas()
-    // intervalo = setInterval(pintarCanvas, 50)
+    intervalo = setInterval(pintarCanvas, 50)
     window.addEventListener('keydown',teclaPresionada)
     window.addEventListener('keyup', detenerMovimiento)
 }
