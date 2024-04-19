@@ -346,39 +346,34 @@ function indexAmbosOponentes(jugador,enemigo){
     indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 
 }
+function validarTipoAtaque(nombreAtaque, nombreEnemigo) {
+  return nombreAtaque === nombreEnemigo;
+}
+
 function combate() {
-
-    for(let index = 0; index < ataqueJugador.length; index++){
-        if(ataqueJugador[index] === ataqueEnemigo[index]){
-            indexAmbosOponentes(index,index)
-            crearMensaje("EMPATE")
-        } else if(ataqueJugador[index]== "FUEGO" && ataqueEnemigo[index] == "TIERRA"){
-            indexAmbosOponentes(index,index)
-            crearMensaje("GANASTE")
-            victoriasJugador ++
-            spanVidasJugador.innerHTML = victoriasJugador
-
-        }else if (ataqueJugador[index] == "AGUA" && ataqueEnemigo[index] == "FUEGO") {
-            indexAmbosOponentes(index,index)
-            crearMensaje("GANASTE")
-            victoriasJugador ++
-            spanVidasJugador.innerHTML = victoriasJugador
+  for (let index = 0; index < ataqueJugador.length; index++) {
+    let mensaje = "PERDISTE";
     
-        } else if (ataqueJugador[index] == "TIERRA" && ataqueEnemigo[index] == "AGUA") {
-            indexAmbosOponentes(index,index)
-            crearMensaje("GANASTE")
-            victoriasJugador ++
-            spanVidasJugador.innerHTML =victoriasJugador
-        } else {
-            indexAmbosOponentes(index,index)
-            crearMensaje("---->PERDISTE")
-            victoriasEnemigo ++
-            spanVidasEnemmigo.innerHTML =  victoriasEnemigo
-        }
+    if (validarTipoAtaque(ataqueJugador[index] !== ataqueEnemigo[index])) {
+        mensaje = "EMPATE";
     }
 
+    if (
+      (validarTipoAtaque(ataqueJugador[index], "FUEGO") &&
+        validarTipoAtaque(ataqueEnemigo[index], "TIERRA")) ||
+      (ataqueJugador[index] === "AGUA" && ataqueEnemigo[index] == "FUEGO") ||
+      (ataqueJugador[index] === "TIERRA" && ataqueEnemigo[index] == "AGUA")
+    ) {
+      mensaje = "GANASTE";
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    }
 
-    revisarVictorias()
+    indexAmbosOponentes(index, index);
+    crearMensaje(mensaje);
+  }
+
+  revisarVictorias();
 }
 
 function revisarVictorias() {

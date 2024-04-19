@@ -17,6 +17,8 @@ class Jugador {
 class Mokepon{
     constructor(nombre){
         this.nombre = nombre
+        this.x = 0
+        this.y = 0
     }
     actualizarPosicion(x,y){
         this.x = x
@@ -55,8 +57,8 @@ app.post("/mokepon/:jugadorId",(req,res)=> {
 
 app.post("/mokepon/:jugadorId/posicion",(req,res) =>{
     const jugadorId = req.params.jugadorId||"";
-    const x = req.body.x||0
-    const y = req.body.y||0
+    const x = req.body.x || 0
+    const y = req.body.y || 0
     const jugadorIndex = jugadores.findIndex((jugador) => jugadorId == jugador.id)
 
     if (jugadorIndex >= 0){
